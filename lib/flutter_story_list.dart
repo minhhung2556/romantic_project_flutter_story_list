@@ -14,8 +14,8 @@ const double _kImageHeightFactor = 0.7;
 const double _kAnimationMaxScrollExtentFactor = 0.2;
 
 class StoryList extends StatefulWidget {
-  final Widget addImage;
-  final Widget addText;
+  final Widget image;
+  final Widget text;
   final IndexedWidgetBuilder itemBuilder;
   final int itemCount;
   final double height;
@@ -23,16 +23,16 @@ class StoryList extends StatefulWidget {
   final double itemMargin;
   final Color backgroundColor;
   final Color borderColor;
-  final Color addIconBackgroundColor;
+  final Color iconBackgroundColor;
   final Color addItemBackgroundColor;
   final double borderRadius;
-  final double addIconSize;
-  final Function onPressedAddIcon;
+  final double iconSize;
+  final Function onPressedIcon;
 
   const StoryList({
     Key key,
-    this.addImage,
-    this.addText,
+    this.image,
+    this.text,
     this.itemBuilder,
     this.itemCount = 0,
     this.height = 200,
@@ -40,11 +40,11 @@ class StoryList extends StatefulWidget {
     this.itemMargin = 8,
     this.backgroundColor = Colors.white,
     this.borderColor = Colors.black12,
-    this.addIconBackgroundColor = Colors.blue,
+    this.iconBackgroundColor = Colors.blue,
     this.addItemBackgroundColor = const Color(0xffefefef),
     this.borderRadius = 16,
-    this.addIconSize = 24,
-    this.onPressedAddIcon,
+    this.iconSize = 24,
+    this.onPressedIcon,
   }) : super(key: key);
 
   @override
@@ -228,7 +228,7 @@ class _StoryListState extends State<StoryList> {
               child: ClipRRect(
                 borderRadius:
                     _addImageBorderRadiusTween.transform(_animationValue),
-                child: widget.addImage,
+                child: widget.image,
               ),
             ),
           ),
@@ -237,7 +237,7 @@ class _StoryListState extends State<StoryList> {
             child: Padding(
               padding: EdgeInsets.all(_kBorderWidth),
               child: Opacity(
-                child: widget.addText,
+                child: widget.text,
                 opacity: math.max(0, 1 - _animationValue * _kTextSpeed),
               ),
             ),
@@ -248,7 +248,7 @@ class _StoryListState extends State<StoryList> {
               decoration: BoxDecoration(
                 borderRadius:
                     _addIconBorderRadiusTween.transform(_animationValue),
-                color: widget.addIconBackgroundColor,
+                color: widget.iconBackgroundColor,
                 border: Border.all(
                   width: _kBorderWidth,
                   color: widget.backgroundColor,
@@ -258,7 +258,7 @@ class _StoryListState extends State<StoryList> {
                   _addIconSizeTween.transform(_animationValue)),
               margin: _addIconMarginTween.transform(_animationValue),
               child: StoryListAddIcon(
-                onPressed: widget.onPressedAddIcon,
+                onPressed: widget.onPressedIcon,
                 size: _addIconChildSizeTween.transform(_animationValue).width,
               ),
             ),
