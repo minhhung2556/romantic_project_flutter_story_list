@@ -4,9 +4,17 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+const double _kBorderWidth = 2;
+const double _kTextSpeed = 3;
+const double _kBorderSpeed = 5;
+const Offset _kCompactSizeFactor = Offset(0.5, 0.28);
+const double _kIconSize = 24;
+const double _kIconSizeFactor = 0.45;
+const double _kImageHeightFactor = 0.7;
+const double _kAnimationMaxScrollExtentFactor = 0.2;
+
 class StoryList extends StatefulWidget {
   final Widget addImage;
-  final Widget addIcon;
   final Widget addText;
   final IndexedWidgetBuilder itemBuilder;
   final int itemCount;
@@ -18,11 +26,12 @@ class StoryList extends StatefulWidget {
   final Color addIconBackgroundColor;
   final Color addItemBackgroundColor;
   final double borderRadius;
+  final double addIconSize;
+  final Function onPressedAddIcon;
 
   const StoryList({
     Key key,
     this.addImage,
-    this.addIcon,
     this.addText,
     this.itemBuilder,
     this.itemCount = 0,
@@ -34,25 +43,22 @@ class StoryList extends StatefulWidget {
     this.addIconBackgroundColor = Colors.blue,
     this.addItemBackgroundColor = const Color(0xffefefef),
     this.borderRadius = 16,
+    this.addIconSize = 24,
+    this.onPressedAddIcon,
   }) : super(key: key);
 
   @override
   _StoryListState createState() => _StoryListState();
 }
 
-const double _kBorderWidth = 2;
-const double _kTextSpeed = 3;
-const double _kBorderSpeed = 5;
-const Offset _kCompactSizeFactor = Offset(0.5, 0.28);
-const double _kIconSizeFactor = 0.45;
-const double _kImageHeightFactor = 0.7;
-const double _kAnimationMaxScrollExtentFactor = 0.2;
-
 class _StoryListState extends State<StoryList> {
   ScrollController _scrollController;
   double _animationValue = 0.0;
   AlignmentTween _addIconAlignmentTween, _addImageAlignmentTween;
-  SizeTween _addImageSizeTween, _addItemSizeTween, _addIconSizeTween;
+  SizeTween _addImageSizeTween,
+      _addItemSizeTween,
+      _addIconSizeTween,
+      _addIconChildSizeTween;
   BorderRadiusTween _addImageBorderRadiusTween,
       _addIconBorderRadiusTween,
       _addItemBorderRadiusTween;
@@ -94,6 +100,10 @@ class _StoryListState extends State<StoryList> {
     _addIconSizeTween = SizeTween(
       begin: Size(iconSize, iconSize),
       end: Size(iconCompactSize, iconCompactSize),
+    );
+    _addIconChildSizeTween = SizeTween(
+      begin: Size(_kIconSize, _kIconSize),
+      end: Size(_kIconSize * _kIconSizeFactor, _kIconSize * _kIconSizeFactor),
     );
     _addIconBorderRadiusTween = BorderRadiusTween(
       begin: BorderRadius.circular(iconSize),
@@ -216,9 +226,9 @@ class _StoryListState extends State<StoryList> {
               width: _addImageSizeTween.transform(_animationValue).width,
               height: _addImageSizeTween.transform(_animationValue).height,
               child: ClipRRect(
-                child: widget.addImage,
                 borderRadius:
                     _addImageBorderRadiusTween.transform(_animationValue),
+                child: widget.addImage,
               ),
             ),
           ),
@@ -247,11 +257,44 @@ class _StoryListState extends State<StoryList> {
               constraints: BoxConstraints.tight(
                   _addIconSizeTween.transform(_animationValue)),
               margin: _addIconMarginTween.transform(_animationValue),
-              child: widget.addIcon,
+              child: StoryListAddIcon(
+                onPressed: widget.onPressedAddIcon,
+                size: _addIconChildSizeTween.transform(_animationValue).width,
+              ),
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class StoryListAddIcon extends StatelessWidget {
+  final Function onPressed;
+  final double size;
+  final Color iconColor;
+
+  const StoryListAddIcon({
+    Key key,
+    this.onPressed,
+    this.size = _kIconSize,
+    this.iconColor = Colors.white,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      child: Icon(
+        Icons.add,
+        color: iconColor,
+        size: size,
+      ),
+      style: ButtonStyle(
+          padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+          elevation: MaterialStateProperty.all<double>(0),
+          shape: MaterialStateProperty.all<OutlinedBorder>(CircleBorder())),
     );
   }
 }
