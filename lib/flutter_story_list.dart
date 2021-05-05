@@ -13,6 +13,34 @@ const double _kIconSizeFactor = 0.45;
 const double _kImageHeightFactor = 0.7;
 const double _kAnimationMaxScrollExtentFactor = 0.2;
 
+/// {@tool snippet}
+/// This is a sample of a [StoryList] widget.
+///
+///
+/// ```dart
+///            StoryList(
+///              onPressedIcon: () {
+///                //TODO something
+///              },
+///              image: Image.network(
+///                _kImageUrls.first,
+///                fit: BoxFit.cover,
+///              ),
+///              text: Text(
+///                "Create Story",
+///                maxLines: 1,
+///                style: TextStyle(
+///                  fontSize: 12,
+///                  color: Colors.black,
+///                ),
+///              ),
+///              itemCount: _kImageUrls.length,
+///              itemBuilder: (context, index) => Image.network(
+///                _kImageUrls[index],
+///              ),
+///            )
+/// ```
+/// {@end-tool}
 class StoryList extends StatefulWidget {
   final Widget image;
   final Widget text;
@@ -29,6 +57,20 @@ class StoryList extends StatefulWidget {
   final double iconSize;
   final Function onPressedIcon;
 
+  /// * [image] is the image at CreateStory item.
+  /// * [text] is the text at CreateStory item.
+  /// * [itemBuilder] builds list items.
+  /// * [itemCount] is required for list.
+  /// * [height] is required for list.
+  /// * [addItemWidth] is the width of CreateStory item.
+  /// * [itemMargin] is the margin between of list items.
+  /// * [backgroundColor] is the list.
+  /// * [borderColor] is the color of the rounded border of each item.
+  /// * [iconBackgroundColor] is the background of circle button in CreateStory item.
+  /// * [addItemBackgroundColor] is the background of CreateStory item.
+  /// * [borderRadius] is the radius of the rounded border of each item.
+  /// * [iconSize] is the size of circle button in CreateStory item.
+  /// * [onPressedIcon] is the action when clicked on circle button in CreateStory item.
   const StoryList({
     Key key,
     this.image,
