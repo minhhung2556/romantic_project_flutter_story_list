@@ -5,7 +5,7 @@ homepage: https://minhhung2556.medium.com
 repository: https://gitlab.com/romantic_project/flutter_story_list.git
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
   flutter: ">=1.17.0"
 
 dependencies:

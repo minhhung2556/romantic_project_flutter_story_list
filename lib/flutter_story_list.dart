@@ -20,7 +20,6 @@ const double _kAnimationMaxScrollExtentFactor = 0.2;
 /// ```dart
 ///            StoryList(
 ///              onPressedIcon: () {
-///                //TODO something
 ///              },
 ///              image: Image.network(
 ///                _kImageUrls.first,
@@ -42,8 +41,8 @@ const double _kAnimationMaxScrollExtentFactor = 0.2;
 /// ```
 /// {@end-tool}
 class StoryList extends StatefulWidget {
-  final Widget image;
-  final Widget text;
+  final Widget? image;
+  final Widget? text;
   final IndexedWidgetBuilder itemBuilder;
   final int itemCount;
   final double height;
@@ -55,7 +54,7 @@ class StoryList extends StatefulWidget {
   final Color addItemBackgroundColor;
   final double borderRadius;
   final double iconSize;
-  final Function onPressedIcon;
+  final Function? onPressedIcon;
 
   /// * [image] is the image at CreateStory item.
   /// * [text] is the text at CreateStory item.
@@ -72,12 +71,12 @@ class StoryList extends StatefulWidget {
   /// * [iconSize] is the size of circle button in CreateStory item.
   /// * [onPressedIcon] is the action when clicked on circle button in CreateStory item.
   const StoryList({
-    Key key,
+    Key? key,
     this.image,
     this.text,
-    this.itemBuilder,
-    this.itemCount = 0,
-    this.height = 200,
+    required this.itemBuilder,
+    required this.itemCount,
+    required this.height,
     this.addItemWidth = 100,
     this.itemMargin = 8,
     this.backgroundColor = Colors.white,
@@ -94,18 +93,18 @@ class StoryList extends StatefulWidget {
 }
 
 class _StoryListState extends State<StoryList> {
-  ScrollController _scrollController;
+  ScrollController? _scrollController;
   double _animationValue = 0.0;
-  AlignmentTween _addIconAlignmentTween, _addImageAlignmentTween;
-  SizeTween _addImageSizeTween,
+  late AlignmentTween _addIconAlignmentTween, _addImageAlignmentTween;
+  late SizeTween _addImageSizeTween,
       _addItemSizeTween,
       _addIconSizeTween,
       _addIconChildSizeTween;
-  BorderRadiusTween _addImageBorderRadiusTween,
+  late BorderRadiusTween _addImageBorderRadiusTween,
       _addIconBorderRadiusTween,
       _addItemBorderRadiusTween;
-  EdgeInsetsTween _addIconMarginTween, _addItemPaddingTween;
-  ColorTween _addItemColorTween, _addItemBorderColorTween;
+  late EdgeInsetsTween _addIconMarginTween, _addItemPaddingTween;
+  late ColorTween _addItemColorTween, _addItemBorderColorTween;
 
   @override
   void initState() {
@@ -156,7 +155,7 @@ class _StoryListState extends State<StoryList> {
           bottom: math.max(
               0,
               widget.height -
-                  _addImageSizeTween.begin.height -
+                  _addImageSizeTween.begin!.height -
                   iconSize / 2 -
                   widget.itemMargin * 2 -
                   _kBorderWidth * 2)),
@@ -188,10 +187,10 @@ class _StoryListState extends State<StoryList> {
     );
 
     _scrollController = ScrollController();
-    _scrollController.addListener(() {
-      var offset = _scrollController.offset;
+    _scrollController!.addListener(() {
+      var offset = _scrollController!.offset;
       var _addItemAnimationMaxOffset =
-          _scrollController.position.maxScrollExtent *
+          _scrollController!.position.maxScrollExtent *
               _kAnimationMaxScrollExtentFactor;
       _animationValue =
           math.min(1, math.max(0, offset / _addItemAnimationMaxOffset));
@@ -230,7 +229,7 @@ class _StoryListState extends State<StoryList> {
                       color: widget.borderColor,
                       borderRadius: _addItemBorderRadiusTween.begin,
                       border: Border.all(
-                        color: _addItemBorderColorTween.begin,
+                        color: _addItemBorderColorTween.begin!,
                         width: _kBorderWidth,
                       ),
                     ),
@@ -253,20 +252,20 @@ class _StoryListState extends State<StoryList> {
         borderRadius: _addItemBorderRadiusTween.transform(_animationValue),
         border: Border.all(
           color: _addItemBorderColorTween
-              .transform(math.min(1, _animationValue * _kBorderSpeed)),
+              .transform(math.min(1, _animationValue * _kBorderSpeed))!,
           width: _kBorderWidth + _kBorderSpeed * _animationValue,
         ),
       ),
-      width: _addItemSizeTween.transform(_animationValue).width,
-      height: _addItemSizeTween.transform(_animationValue).height,
+      width: _addItemSizeTween.transform(_animationValue)!.width,
+      height: _addItemSizeTween.transform(_animationValue)!.height,
       margin: _addItemPaddingTween.transform(_animationValue),
       child: Stack(
         children: [
           Align(
             alignment: _addImageAlignmentTween.transform(_animationValue),
             child: SizedBox(
-              width: _addImageSizeTween.transform(_animationValue).width,
-              height: _addImageSizeTween.transform(_animationValue).height,
+              width: _addImageSizeTween.transform(_animationValue)!.width,
+              height: _addImageSizeTween.transform(_animationValue)!.height,
               child: ClipRRect(
                 borderRadius:
                     _addImageBorderRadiusTween.transform(_animationValue),
@@ -297,11 +296,11 @@ class _StoryListState extends State<StoryList> {
                 ),
               ),
               constraints: BoxConstraints.tight(
-                  _addIconSizeTween.transform(_animationValue)),
+                  _addIconSizeTween.transform(_animationValue)!),
               margin: _addIconMarginTween.transform(_animationValue),
               child: StoryListAddIcon(
                 onPressed: widget.onPressedIcon,
-                size: _addIconChildSizeTween.transform(_animationValue).width,
+                size: _addIconChildSizeTween.transform(_animationValue)!.width,
               ),
             ),
           ),
@@ -312,12 +311,12 @@ class _StoryListState extends State<StoryList> {
 }
 
 class StoryListAddIcon extends StatelessWidget {
-  final Function onPressed;
+  final Function? onPressed;
   final double size;
   final Color iconColor;
 
   const StoryListAddIcon({
-    Key key,
+    Key? key,
     this.onPressed,
     this.size = _kIconSize,
     this.iconColor = Colors.white,
@@ -326,7 +325,7 @@ class StoryListAddIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: onPressed as void Function()?,
       child: Icon(
         Icons.add,
         color: iconColor,
