@@ -76,7 +76,7 @@ class StoryList extends StatefulWidget {
     this.text,
     required this.itemBuilder,
     required this.itemCount,
-    required this.height,
+    this.height = 200,
     this.addItemWidth = 100,
     this.itemMargin = 8,
     this.backgroundColor = Colors.white,
