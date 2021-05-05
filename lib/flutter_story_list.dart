@@ -310,11 +310,26 @@ class _StoryListState extends State<StoryList> {
   }
 }
 
+/// {@tool snippet}
+/// This is a sample of a [StoryListAddIcon] widget.
+///
+///
+/// ```dart
+///            StoryListAddIcon(
+///              onPressed: () {
+///              },
+///              size: 24,
+///            )
+/// ```
+/// {@end-tool}
 class StoryListAddIcon extends StatelessWidget {
   final Function? onPressed;
   final double size;
   final Color iconColor;
 
+  /// * [onPressed] is the action when clicked.
+  /// * [size] is the size of the icon inside.
+  /// * [iconColor] is the color of the icon inside.
   const StoryListAddIcon({
     Key? key,
     this.onPressed,
