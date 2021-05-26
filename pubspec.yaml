@@ -1,6 +1,6 @@
 name: flutter_story_list
-description: A Flutter package to create Facebook's style Story List. It will be useful for your awesome app. You can make a Story list with it, a Card list, or whatever you want.
-version: 1.0.3-1
+description: A Flutter package to create Facebook's style Story List. It will be useful for your awesome app.
+version: 1.0.4
 homepage: https://minhhung2556.medium.com
 repository: https://gitlab.com/romantic_project/flutter_story_list.git
 
