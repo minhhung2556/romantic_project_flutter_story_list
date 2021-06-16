@@ -1,3 +1,7 @@
+## [1.0.4+1] - 16/06/2021
+
+* Update information.
+
 ## [1.0.4] - 05/05/2021
 
 * Migrate to Null-Safety.
