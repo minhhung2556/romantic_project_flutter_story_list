@@ -1,7 +1,7 @@
 name: flutter_story_list
 description: A Flutter package to create Facebook's style Story List. It will be useful for your awesome app.
-version: 1.0.4+1
-homepage: https://minhhung2556.github.io
+version: 1.0.4+2
+homepage: https://romanticdeveloper.com
 repository: https://github.com/minhhung2556/romantic_project_flutter_story_list.git
 
 environment:
