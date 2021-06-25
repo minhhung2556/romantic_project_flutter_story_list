@@ -2,7 +2,7 @@
 
 A Flutter package to create Facebook's style Story List.
 
-![Imgur](https://imgur.com/download/KOCBxXR)
+![Demo](./demo.gif)
 
 ### Example
 
