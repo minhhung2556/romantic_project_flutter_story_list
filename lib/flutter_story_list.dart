@@ -100,7 +100,7 @@ class _StoryListState extends State<StoryList> {
       _addItemSizeTween,
       _addIconSizeTween,
       _addIconChildSizeTween;
-  late BorderRadiusTween _addImageBorderRadiusTween,
+  late Tween<BorderRadiusGeometry> _addImageBorderRadiusTween,
       _addIconBorderRadiusTween,
       _addItemBorderRadiusTween;
   late EdgeInsetsTween _addIconMarginTween, _addItemPaddingTween;
@@ -113,7 +113,7 @@ class _StoryListState extends State<StoryList> {
     var iconSize = widget.addItemWidth * _kIconSizeFactor;
     var iconCompactSize = compactSize.width * _kIconSizeFactor;
 
-    _addImageBorderRadiusTween = BorderRadiusTween(
+    _addImageBorderRadiusTween = Tween<BorderRadiusGeometry>(
       begin: BorderRadius.only(
         topLeft: Radius.circular(widget.borderRadius),
         topRight: Radius.circular(widget.borderRadius),
@@ -146,7 +146,7 @@ class _StoryListState extends State<StoryList> {
       begin: Size(_kIconSize, _kIconSize),
       end: Size(_kIconSize * _kIconSizeFactor, _kIconSize * _kIconSizeFactor),
     );
-    _addIconBorderRadiusTween = BorderRadiusTween(
+    _addIconBorderRadiusTween = Tween<BorderRadiusGeometry>(
       begin: BorderRadius.circular(iconSize),
       end: BorderRadius.circular(iconCompactSize),
     );
@@ -161,7 +161,7 @@ class _StoryListState extends State<StoryList> {
                   _kBorderWidth * 2)),
       end: EdgeInsets.zero,
     );
-    _addItemBorderRadiusTween = BorderRadiusTween(
+    _addItemBorderRadiusTween = Tween<BorderRadiusGeometry>(
       begin: BorderRadius.circular(widget.borderRadius + _kBorderWidth),
       end: BorderRadius.only(
         topLeft: Radius.zero,
@@ -347,10 +347,10 @@ class StoryListAddIcon extends StatelessWidget {
         size: size,
       ),
       style: ButtonStyle(
-          padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
-          elevation: MaterialStateProperty.all<double>(0),
-          shape: MaterialStateProperty.all<OutlinedBorder>(CircleBorder())),
+          padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+          backgroundColor: WidgetStateProperty.all<Color>(Colors.transparent),
+          elevation: WidgetStateProperty.all<double>(0),
+          shape: WidgetStateProperty.all<OutlinedBorder>(CircleBorder())),
     );
   }
 }
