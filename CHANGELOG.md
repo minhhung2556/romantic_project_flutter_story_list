@@ -1,3 +1,7 @@
+## [1.1.0] - 17/12/2024
+
+* Upgrade Flutter version.
+
 ## [1.0.4+2] - 25/06/2021
 
 * Fix demo gif.
